@@ -12,6 +12,9 @@ const userSchema = new Schema(
 		password: {
 			type: String
 		},
+		updateToken: {
+			type: String
+		},
 		role: {
 			type: String,
 			default: 'user'

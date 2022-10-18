@@ -8,7 +8,13 @@
 
 <h1>Login</h1>
 
-<form action="?/login" method="POST" use:enhance>
+<form action="?/login" method="POST" use:enhance={() => {
+    return async ({ result }) => {
+        invalidateAll();
+
+        await applyAction(result);
+    };
+}}>
     <div>
         <label for="username">Username</label>
         <input type="text" name="username" id="username" required/>

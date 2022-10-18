@@ -1,13 +1,24 @@
 <script>
+    import { page } from '$app/stores';
     import '../styles/global.css';
 </script>
 
 <nav>
     <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/protected/admin">Admin</a></li>
+        <li><a href="/">Home</a></li>
+        {#if !$page?.data?.user}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        {:else}
+            <li>
+                <form action="/logout" method="post">
+                    <button type="submit">Logout</button>
+                </form> 
+            </li>
+        {/if}
+        {#if $page?.data?.user?.role === 'Admin'}
+            <li><a href="/admin">Admin</a></li>
+        {/if}
     </ul>
 </nav>
 <main>
@@ -34,5 +45,20 @@
     }
     a:hover {
         color: #000;
+    }
+
+    form {
+        display: block;
+        width: 45px;
+    }
+
+    button {
+        background: none;
+        border: none;
+        color: #333;
+        cursor: pointer;
+        font: inherit;
+        padding: 0;
+        text-decoration: underline;
     }
 </style>
